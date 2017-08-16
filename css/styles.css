@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+}
+
+a img {
+    border: 0px;
+}
+
+#map {
+    bottom: 0px;
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+::-moz-selection {
+    background-color: #6ab344;
+    color: #fff;
+}
+
+::selection {
+    background-color: #6ab344;
+    color: #fff;
+}
+
+.app-mobile-title {
+    display: none !important;
+}
+
+.app-logo-image {
+    height: 28px;
+    width: 140px;
+}
+
+.app-header {
+    overflow: visible;
+    background-color: white;
+}
+
+.app-header .material-icons {
+    color: #767777 !important;
+}
+
+.app-header .mdl-layout__drawer-button {
+    background: transparent;
+    color: #767777;
+}
+
+.app-drawer {
+    border-right: none;
+}
+
+.app-drawer-separator {
+    height: 1px;
+    background-color: #dcdcdc;
+    margin: 8px 0;
+}
+
+
+.app-drawer .mdl-layout-title {
+    position: relative;
+    background: #6ab344;
+    height: 160px;
+}
+
+.app-drawer .app-logo-image {
+    position: absolute;
+    bottom: 16px;
+}
+
+.app-link-menu:hover {
+    cursor: pointer;
+}
+
+.app-list-item
+{
+    font-size:10px;
+}
+
+.search-box
+{
+    margin: 16px;
+}
+
+textarea, input {
+    padding:10px;
+    font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
+
+/**** Mobile layout ****/
+@media (max-width: 900px) {
+    .app-navigation-container {
+        display: none;
+    }
+
+    .app-title {
+        display: none !important;
+    }
+
+    .app-mobile-title {
+        display: block !important;
+        position: absolute;
+        left: calc(50% - 70px);
+        top: 12px;
+        transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+}
