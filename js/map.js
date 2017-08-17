@@ -2,15 +2,7 @@ var map;
 var clientID;
 var clientSecret;
 
-// Manhattan neighborhood locations
-var locations = [
-    {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-    {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-    {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-    {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-    {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-    {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
-];
+var infoWindow;
 
 //Formatting the phone number
 function formatPhone(phonenum) {
@@ -65,11 +57,9 @@ var Location = function (data) {
             self.phone = formatPhone(self.phone);
         }
     }).fail(function () {
-        console.error("Error getting address for " + data.title);
+        alert("Error getting address for " + data.title);
     });
 
-
-    this.infoWindow = new google.maps.InfoWindow();
 
     this.marker = new google.maps.Marker({
         position: data.location,
@@ -90,15 +80,18 @@ var Location = function (data) {
 
     // Listener to populate marker's info window
     this.marker.addListener('click', function () {
+
+
         self.contentString = '<div ><div><b>' + data.title + "</b></div>" +
             '<div><a href="' + self.URL + '">' + self.URL + "</a></div>" +
             '<div >' + self.street + "</div>" +
             '<div>' + self.city + "</div>" +
             '<div ><a href="tel:' + self.phone + '">' + self.phone + "</a></div></div>";
 
-        self.infoWindow.setContent(self.contentString);
+        console.log(self.contentString);
+        infoWindow.setContent(self.contentString);
 
-        self.infoWindow.open(map, this);
+        infoWindow.open(map, this);
 
         self.marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function () {
@@ -115,11 +108,17 @@ var Location = function (data) {
 
 var ViewModel = function () {
 
+
+    // FourSquare API client is and client secret id
+    clientID = "QP0I4A4N1SHDRADILAQGCIXMBFQTS2EB2MUYKMHNEJLRUCU2";
+    clientSecret = "PKW3CMMSCXOGOI2KGBT1F4RZNXGWVGIVPNPRKYGSP5HZSYHZ";
+
     var self = this;
 
     self.locationList = ko.observableArray([]);
     self.searchData = ko.observable("");
     bounds = new google.maps.LatLngBounds();
+
 
     // Setting up map on Manhattan location
     map = new google.maps.Map(document.getElementById('map'), {
@@ -129,13 +128,15 @@ var ViewModel = function () {
     });
 
 
-    // FourSquare API client is and client secret id
-    clientID = "QP0I4A4N1SHDRADILAQGCIXMBFQTS2EB2MUYKMHNEJLRUCU2";
-    clientSecret = "PKW3CMMSCXOGOI2KGBT1F4RZNXGWVGIVPNPRKYGSP5HZSYHZ";
+    $.getJSON("locations.json", function (data) {
+        var items = [];
+        $.each(data, function (i, item) {
+            self.locationList.push(new Location(item));
+        });
 
-    locations.forEach(function (locationItem) {
-        self.locationList.push(new Location(locationItem));
     });
+
+
 
 
     // Filtering the list locations from the search box input
