@@ -1,8 +1,7 @@
 var map;
 var clientID;
 var clientSecret;
-
-var infoWindow;
+var infowindow;
 
 //Formatting the phone number
 function formatPhone(phonenum) {
@@ -88,11 +87,9 @@ var Location = function (data) {
             '<div>' + self.city + "</div>" +
             '<div ><a href="tel:' + self.phone + '">' + self.phone + "</a></div></div>";
 
-        console.log(self.contentString);
-        infoWindow.setContent(self.contentString);
+        infowindow.setContent(self.contentString);
 
-        infoWindow.open(map, this);
-
+        infowindow.open(map, this);
         self.marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function () {
             self.marker.setAnimation(null);
@@ -119,7 +116,7 @@ var ViewModel = function () {
     self.searchData = ko.observable("");
     bounds = new google.maps.LatLngBounds();
 
-
+    infowindow = new google.maps.InfoWindow();
     // Setting up map on Manhattan location
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 40.7413549, lng: -73.9980244},
@@ -135,8 +132,6 @@ var ViewModel = function () {
         });
 
     });
-
-
 
 
     // Filtering the list locations from the search box input
