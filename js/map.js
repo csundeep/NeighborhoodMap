@@ -39,6 +39,8 @@ var Location = function (data) {
 
     var url = 'https://api.foursquare.com/v2/venues/search?ll=' + data.location.lat + ',' + data.location.lng + '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=20160118' + '&query=' + data.title;
     //Calling foursquare api to get address of the locations
+
+
     $.getJSON(url).done(function (data) {
         var results = data.response.venues[0];
         if (results) {
@@ -49,11 +51,21 @@ var Location = function (data) {
             self.street = results.location.formattedAddress[0];
             self.city = results.location.formattedAddress[1];
             self.phone = results.contact.phone;
+            if (typeof self.phone === 'undefined') {
+                self.phone = "";
+            } else {
+                self.phone = formatPhone(self.phone);
+            }
+
+            self.contentString = '<div ><div><b>' + self.name + "</b></div>" +
+                '<div><a href="' + self.URL + '">' + self.URL + "</a></div>" +
+                '<div >' + self.street + "</div>" +
+                '<div>' + self.city + "</div>" +
+                '<div ><a href="tel:' + self.phone + '">' + self.phone + "</a></div></div>";
         }
-        if (typeof self.phone === 'undefined') {
-            self.phone = "";
-        } else {
-            self.phone = formatPhone(self.phone);
+        else {
+            self.contentString = '<div ><div><b>' + self.name + "</b></div>" +
+                '<div><p style="color: red; font-size: 10px">Unable to load data</p></div>';
         }
     }).fail(function () {
         alert("Error getting address for " + data.title);
@@ -79,13 +91,6 @@ var Location = function (data) {
 
     // Listener to populate marker's info window
     this.marker.addListener('click', function () {
-
-
-        self.contentString = '<div ><div><b>' + data.title + "</b></div>" +
-            '<div><a href="' + self.URL + '">' + self.URL + "</a></div>" +
-            '<div >' + self.street + "</div>" +
-            '<div>' + self.city + "</div>" +
-            '<div ><a href="tel:' + self.phone + '">' + self.phone + "</a></div></div>";
 
         infowindow.setContent(self.contentString);
 
