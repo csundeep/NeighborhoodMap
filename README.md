@@ -4,8 +4,7 @@ Udacity project with knockout JS framework and google maps API.
 ## Setup:
 * Clone or [download](https://github.com/csundeep/NeighborhoodMap) the repo.
   * Extract files.
-  * In home folder directory run this command to setup local server
-                python -m http.server 8080
+  * In home folder directory run this command to setup local server **python -m http.server 8080**
   * Open http://localhost:8080 this will automatically load index.html file
 
 ## Expected Functionality:
