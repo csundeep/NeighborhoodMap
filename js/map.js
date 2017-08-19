@@ -106,23 +106,10 @@ var Location = function (data) {
 var ViewModel = function () {
 
 
-    // FourSquare API client is and client secret id
-    clientID = "QP0I4A4N1SHDRADILAQGCIXMBFQTS2EB2MUYKMHNEJLRUCU2";
-    clientSecret = "PKW3CMMSCXOGOI2KGBT1F4RZNXGWVGIVPNPRKYGSP5HZSYHZ";
-
     var self = this;
 
     self.locationList = ko.observableArray([]);
     self.searchData = ko.observable("");
-    bounds = new google.maps.LatLngBounds();
-
-    infowindow = new google.maps.InfoWindow();
-    // Setting up map on Manhattan location
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 40.7413549, lng: -73.9980244},
-        zoom: 13,
-        mapTypeControl: false
-    });
 
 
     $.getJSON("locations.json", function (data) {
@@ -155,6 +142,21 @@ var ViewModel = function () {
 
 };
 function initMap(markers) {
+
+
+    // FourSquare API client is and client secret id
+    clientID = "QP0I4A4N1SHDRADILAQGCIXMBFQTS2EB2MUYKMHNEJLRUCU2";
+    clientSecret = "PKW3CMMSCXOGOI2KGBT1F4RZNXGWVGIVPNPRKYGSP5HZSYHZ";
+
+    infowindow = new google.maps.InfoWindow();
+    // Setting up map on Manhattan location
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 40.7413549, lng: -73.9980244},
+        zoom: 13,
+        mapTypeControl: false
+    });
+
+
     ko.applyBindings(new ViewModel());
 }
 

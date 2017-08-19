@@ -4,7 +4,7 @@ Udacity project with knockout JS framework and google maps API.
 ## Setup:
 * Clone or [download](https://github.com/csundeep/NeighborhoodMap) the repo.
   * Extract files.
-  * Open index.html
+  * Open index.html in webserver like apache or nginx
 
 ## Expected Functionality:
 * Google map loaded from Maps API.
