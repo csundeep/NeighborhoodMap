@@ -107,7 +107,7 @@ var Location = function (data) {
     };
 };
 
-
+// Knockout startup
 var ViewModel = function () {
 
 
@@ -146,8 +146,9 @@ var ViewModel = function () {
 
 
 };
-function initMap(markers) {
 
+// Starting point of the application
+function initMap(markers) {
 
     // FourSquare API client is and client secret id
     clientID = "QP0I4A4N1SHDRADILAQGCIXMBFQTS2EB2MUYKMHNEJLRUCU2";
@@ -165,6 +166,7 @@ function initMap(markers) {
     ko.applyBindings(new ViewModel());
 }
 
+//error handling when js dependencies are not properly loaded
 function errorHandling() {
     alert("Google Maps has failed to load. Please check your internet connection and try again.");
 }
